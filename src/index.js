@@ -1,12 +1,18 @@
-import 'babel-polyfill'; //used for ES6 features that need a polyfill, like promises & generators
+import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, browserHistory } from 'react-router'; //browserHistory handles browser history and gives clean URLs
-import routes from './routes';
-import HomePage from './components/HomePage';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Game from './components/Game';
 import './styles/styles.css';
-require("typeface-open-sans");
+
+//enable hot module replacement;
+if(DEVELOPMENT) { //eslint-disable-line
+  if (module.hot) {
+    module.hot.accept();
+  }
+}
 
 render(
-  <Router history={browserHistory} routes={routes} />, document.getElementById('app')
-);
+    <BrowserRouter>
+      <Route path="/" component={Game} />
+    </BrowserRouter>, document.getElementById('root'));
